@@ -7,7 +7,9 @@ module ApplicationHelper
 
     def navigation_items
         [
-            {name: "Home", icon: "fa fa-home", link: root_path}
+            {name: "Home", icon: "fa fa-home", link: root_path},
+            {name: "Messages", icon: "fa fa-envelope", link: messages_path},
+            {name: "Invoices", icon: "fa fa-book", link: invoices_path}
         ]
     end
 
