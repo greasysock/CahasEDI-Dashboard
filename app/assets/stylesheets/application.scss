@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+@import "font-awesome";
+@import "bootstrap";
+@import "./AdminLTE";
+
+.navbar-static-top {
+    padding: 0;
+}
+
+.dashboard-header {
+    color: white;
+}

@@ -1,0 +1,3 @@
+module PageHelper
+
+end
