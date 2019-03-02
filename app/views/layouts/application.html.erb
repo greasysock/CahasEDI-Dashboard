@@ -7,7 +7,10 @@
       <%= render "layouts/shared/header" %>
       <%= render "layouts/shared/sidebar" %>
       <div class="content-wrapper">
+        <%= render "layouts/shared/content/content_header_section_footer" do%>
           <%= yield %>
+        <%end%>
+          <%= render "layouts/shared/copyright_version"%>
       </div>
     </div>
 
