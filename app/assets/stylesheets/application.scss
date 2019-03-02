@@ -20,3 +20,31 @@
 .navbar-static-top {
     padding: 0;
 }
+
+.logo-img {
+    max-width: 8em;
+    border-radius: 5px;
+    outline: 25px black;
+    padding-left: 1.5em;
+    padding-top: .3em;
+}
+.logo-img-mini {
+    max-width: 2.5em;
+    padding-left: .25em;
+    padding-top: .25em;
+}
+.main-sidebar {
+    background: #31150e !important;
+}
+
+.sidebar {
+    background: #31150e;
+}
+
+.skin-black .sidebar-menu > li:hover > a, .skin-black .sidebar-menu > li.active > a, .skin-black .sidebar-menu > li.menu-open > a {
+    background: #200d09 !important;
+}
+
+.content-wrapper {
+    background: #f0e9e7;
+}
