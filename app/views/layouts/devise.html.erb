@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <%=render "layouts/shared/html_head"%>
+    <body class="hold-transition login-page">
+
+        <div class="login-box">
+            <div class="login-logo">
+                <%=link_to root_path do %>
+                    <img src="<%=image_url('login_logo.png')%>">
+                <%end%>
+            </div>
+            <div class="login-box-body">
+                <%=yield%>
+            </div>
+        </div>
+    </body>
+</html>
