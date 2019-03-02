@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery-ui
+//= require bootstrap
 //= require adminlte
 //= require rails-ujs
 //= require activestorage
