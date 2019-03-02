@@ -58,3 +58,8 @@ div .login-logo {
     background: white;
     box-shadow: black;
 }
+
+.dropdown-toggle::before{
+    background: white !important;
+    margin-left: 400px;
+}
