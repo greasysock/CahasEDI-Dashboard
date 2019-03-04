@@ -28,6 +28,17 @@ module CahasEdi
 
     class Core
         @@connection = Faraday.new(:url => 'http://localhost:8080')
+        
+        def self.status_hash
+            {
+                0 => "received",
+                2 => "send",
+                3 => "sent",
+                5 => "received but not ack",
+                6 => "received and ack",
+                7 => "received but ack failed"
+            }
+        end
 
         def self.process_partner json_obj
             p = Partner.new
@@ -54,7 +65,7 @@ module CahasEdi
             m.template = self.template message["template id"]
             m.id = message["message id"]
             m.partner = self.partner message["partner id"]
-            m.status = message['status']
+            m.status = self.status_hash[message['status']]
             m.date = DateTime.strptime(message['date'].to_s, '%s')
             m.interchange_control_number = message["interchange control number"]
             m.group_control_number = message["group control number"]

@@ -4,19 +4,19 @@
         <table class="table table-hover">
         <tr>
             <th>Trans Set</th>
+            <th>Description</th>
             <th>Trading Partner</th>
             <th>Received On</th>
             <th>Status</th>
-            <th>Ack</th>
         </tr>
     <%CahasEdi::Core.messages.each do |message|%>
 
         <tr>
             <td><%=message.template.id%></td>
+            <td><%=message.template.description%></td>
             <td><%=message.partner.name%></td>
             <td><%=message.date.strftime("%m/%d/%Y | %I:%M:%S %p")%></td>
             <td><%=message.status%></td>
-            <td>N/A</td>
         </tr>
     <%end%>
         </table>
