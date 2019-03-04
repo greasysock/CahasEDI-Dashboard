@@ -1,15 +1,102 @@
 module CahasEdi
-    class core
-        def inititialize
+    require 'faraday'
+    require 'json'
+    require 'date'
+
+    class Template
+        attr_accessor :id,
+                        :description
+    end
+
+    class Partner
+        attr_accessor :id,
+                        :name,
+                        :intercahnge_id,
+                        :interchange_qualifier
+    end
+
+    class Message
+        attr_accessor :template, 
+                        :id, 
+                        :partner,
+                        :status,
+                        :date,
+                        :interchange_control_number,
+                        :group_control_number,
+                        :transaction_control_number 
+    end
+
+    class Core
+        @@connection = Faraday.new(:url => 'http://localhost:8080')
+
+        def self.process_partner json_obj
+            p = Partner.new
+            p.id = json_obj['id']
+            p.name = json_obj['name']
+            p.intercahnge_id = json_obj['interchange id']
+            p.interchange_qualifier = json_obj['interchange qualifier']
+            p
         end
 
-        def get_partners
+        def self.partners
+            @@connection.get '/partners'
         end
 
-        def get_messages
+        def self.partner id
+            partner = @@connection.get("/partners/#{id}")
+            if partner.status == 200
+                self.process_partner JSON.parse(partner.body)
+            end
         end
 
-        def get_templates
+        def self.process_message message
+            m = Message.new
+            m.template = self.template message["template id"]
+            m.id = message["message id"]
+            m.partner = self.partner message["partner id"]
+            m.status = message['status']
+            m.date = DateTime.strptime(message['date'].to_s, '%s')
+            m.interchange_control_number = message["interchange control number"]
+            m.group_control_number = message["group control number"]
+            m.transaction_control_number = message["transaction control number"]
+            m
         end
+
+        # If status 200 return array of Message objects
+        def self.messages
+            response = @@connection.get '/messages'
+            if response.status == 200
+                messages = JSON.parse(response.body)
+                processed_messages = []
+                messages.each do |message|
+                    processed_messages.push(self.process_message message)
+                end
+                processed_messages
+            end
+        end
+
+        def self.message id
+            @@connection.get "/messages/#{id}"
+        end
+
+        def self.process_template json_obj
+            t = Template.new
+            t.id = json_obj["id"]
+            t.description = json_obj["description"]
+            t
+        end
+
+        def self.templates
+            @@connection.get '/templates'
+        end
+
+        def self.template id
+            template = @@connection.get "templates/#{id}"
+            if template.status == 200
+                self.process_template JSON.parse(template.body)
+            end
+
+        end
+
     end
 end
