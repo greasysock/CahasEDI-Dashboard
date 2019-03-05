@@ -23,7 +23,22 @@ module CahasEdi
                         :date,
                         :interchange_control_number,
                         :group_control_number,
-                        :transaction_control_number 
+                        :transaction_control_number,
+                        :raw_content
+        def content
+            if @raw_content
+                return @raw_content
+            end
+            @raw_content = Core.message(@id).content
+        end
+
+
+        def unpack_content cont
+        end
+
+        def to_s
+            content
+        end
     end
 
     class Core
@@ -62,6 +77,7 @@ module CahasEdi
 
         def self.process_message message
             m = Message.new
+            m.raw_content = message['content'] if message['content']
             m.template = self.template message["template id"]
             m.id = message["message id"]
             m.partner = self.partner message["partner id"]
@@ -96,6 +112,7 @@ module CahasEdi
             rescue Faraday::ConnectionFailed
                 return
             end
+            self.process_message(JSON.parse(response.body))
             
         end
 
