@@ -25,4 +25,8 @@ module ApplicationHelper
         end
         navigation_links.html_safe
     end
+
+    def alert message
+        render("shared/alert", msg: message)
+    end
 end

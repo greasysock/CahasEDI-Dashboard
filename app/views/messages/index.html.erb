@@ -10,9 +10,7 @@
             <th>Received On</th>
             <th>Status</th>
         </tr>
-    <%@messages.each do |message|%>
-        <%=render "messages/message_table", message: message%>
-    <%end%>
+    <%=messages_table || alert("Communication with CahasEDI Failed.") %>
         </table>
     </div>
 

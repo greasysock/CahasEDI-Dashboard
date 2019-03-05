@@ -75,7 +75,11 @@ module CahasEdi
 
         # If status 200 return array of Message objects
         def self.messages
-            response = @@connection.get '/messages'
+            begin
+                response = @@connection.get '/messages'
+            rescue Faraday::ConnectionFailed
+                return
+            end
             if response.status == 200
                 messages = JSON.parse(response.body)
                 processed_messages = []
@@ -87,7 +91,12 @@ module CahasEdi
         end
 
         def self.message id
-            @@connection.get "/messages/#{id}"
+            begin
+                response = @@connection.get "/messages/#{id}"
+            rescue Faraday::ConnectionFailed
+                return
+            end
+            
         end
 
         def self.process_template json_obj
