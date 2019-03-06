@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
     before_action :authenticate_user!
     before_action :set_message, only: [:show]
     def index
+        authorize
         @messages = CahasEdi::Core.messages
     end
 
