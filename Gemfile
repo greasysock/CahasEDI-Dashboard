@@ -58,5 +58,5 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'font-awesome-rails'
 gem 'devise', '~> 4.6', '>= 4.6.1'
-
+gem 'pundit', '~> 2.0', '>= 2.0.1'
 gem 'faraday', '~> 0.15.4'
