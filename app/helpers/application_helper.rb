@@ -62,7 +62,9 @@ module ApplicationHelper
             {name: "Home", icon: "fa fa-home", link: root_path},
             {name: "Messages", icon: "fa fa-envelope", link: messages_path},
             NavigationParent.new( {name: "Invoices", icon: "fa fa-book", link: invoices_path}, 
-                [ {name: "New Invoice", icon: "fa fa-plus", link: new_invoice_path } ])
+                [ {name: "New Invoice", icon: "fa fa-plus", link: new_invoice_path } ]),
+            NavigationParent.new({name: "Purchase Orders", icon: "fa fa-book", link: purchase_orders_path}, 
+                [ {name: "New Purchase Order", icon: "fa fa-plus", link: new_purchase_order_path } ])
         ]
     end
 
