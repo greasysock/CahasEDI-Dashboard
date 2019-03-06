@@ -60,11 +60,13 @@ module ApplicationHelper
     def navigation_items
         [
             {name: "Home", icon: "fa fa-home", link: root_path},
+            NavigationParent.new( {name: "Partnerships", icon: "fa fa-users", link: partnerships_path}, 
+                [ {name: "New Partnership", icon: "fa fa-plus", link: new_partnership_path } ]),
             {name: "Messages", icon: "fa fa-envelope", link: messages_path},
             NavigationParent.new( {name: "Invoices", icon: "fa fa-book", link: invoices_path}, 
                 [ {name: "New Invoice", icon: "fa fa-plus", link: new_invoice_path } ]),
-            NavigationParent.new({name: "Purchase Orders", icon: "fa fa-book", link: purchase_orders_path}, 
-                [ {name: "New Purchase Order", icon: "fa fa-plus", link: new_purchase_order_path } ])
+            NavigationParent.new({name: "Purchase Orders", icon: "fa fa-shopping-cart", link: purchase_orders_path}, 
+                [ {name: "New Purchase Order", icon: "fa shopping-cart", link: new_purchase_order_path } ])
         ]
     end
 
