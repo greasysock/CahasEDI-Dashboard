@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'page#home'
-  get 'invoices', to: 'page#invoices'
 
   resources :messages, except: [:destroy, :edit, :update]
-  #get 'messages', to: 'page#messages'
+  resources :invoices, except: [:destroy, :edit, :update]
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

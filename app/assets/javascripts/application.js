@@ -13,10 +13,13 @@
 //= require jquery
 //= require jquery-ui
 //= require bootstrap
-//= require adminlte
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+//= turbolinks
+//= require adminlte
 //= require_tree .
 
-var ready = function () { return $(window).trigger('resize'); }; document.addEventListener('turbolinks:load', ready);
+var ready = function () {
+    return $(window).trigger('resize');
+};
+document.addEventListener('turbolinks:load', ready);
