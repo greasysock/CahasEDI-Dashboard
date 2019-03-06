@@ -3,6 +3,10 @@ class AdminDashboardController < ApplicationController
     before_action :check_admin
     def index
     end
+    def create_user
+    end
+    def new_user
+    end
 
     private
     def check_admin
