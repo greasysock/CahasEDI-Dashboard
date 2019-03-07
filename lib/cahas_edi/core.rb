@@ -65,7 +65,19 @@ module CahasEdi
         end
 
         def self.partners
-            @@connection.get '/partners'
+            begin
+                response = @@connection.get '/partners'
+            rescue Faraday::ConnectionFailed
+                return
+            end
+            if response.status == 200
+                partners = JSON.parse(response.body)
+                processed_partners = []
+                partners.each do |partner|
+                    processed_partners.push(self.process_partner partner)
+                end
+                processed_partners
+            end
         end
 
         def self.partner id

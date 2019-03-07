@@ -1,5 +1,6 @@
 class PartnershipsController < AuthApplicationController
     def index
+        @partnerships = CahasEdi::Core.partners
     end
 
     def new
