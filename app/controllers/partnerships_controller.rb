@@ -1,6 +1,4 @@
-class PartnershipsController < ApplicationController
-    before_action :authenticate_user!
-
+class PartnershipsController < AuthApplicationController
     def index
     end
 

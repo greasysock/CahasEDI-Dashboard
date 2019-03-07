@@ -1,5 +1,4 @@
-class PageController < ApplicationController
-  before_action :authenticate_user!
+class PageController < AuthApplicationController
   def home
   end
 end

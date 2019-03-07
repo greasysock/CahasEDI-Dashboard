@@ -1,5 +1,4 @@
-class InvoicesController < ApplicationController
-    before_action :authenticate_user!
+class InvoicesController < AuthApplicationController
 
     def index
     end

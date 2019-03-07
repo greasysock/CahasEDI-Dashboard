@@ -1,5 +1,4 @@
-class MessagesController < ApplicationController
-    before_action :authenticate_user!
+class MessagesController < AuthApplicationController
     before_action :set_message, only: [:show]
     def index
         @messages = CahasEdi::Core.messages

@@ -1,6 +1,4 @@
-class PurchaseOrdersController < ApplicationController
-    before_action :authenticate_user!
-
+class PurchaseOrdersController < AuthApplicationController
     def index
     end
 
