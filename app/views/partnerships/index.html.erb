@@ -7,7 +7,7 @@
         <div class="card-body">
             <h5 class="card-title"><%=partner.name%></h5>
             <p class="card-text">Trading Partner</p>
-            <a href="#" class="btn btn-primary">View</a>
+            <%= link_to "Profile", partnership_path(partner.id), class: "btn btn-primary"%>
         </div>
         </div>
     </div>
