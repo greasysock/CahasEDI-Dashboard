@@ -1,0 +1,35 @@
+<%=render "layouts/shared/content/content_box", title: "Current Users" do%>
+
+<div class="box-body table-responsive no-padding">
+<table class="table table-hover">
+<tbody><tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Date Registered</th>
+    <th>Status</th>
+    <th>Privileges</th>
+    <th></th>
+</tr>
+
+<%@users.each do |user|%>
+
+<tr>
+    <td><%=user.id%></td>
+    <td><%="#{user.first_name} #{user.last_name}"%></td>
+    <td><%=user.email%></td>
+    <td><%=user.created_at%></td>
+    <td><%=user_status user%></td>
+    <td><%=user_privileges user%></td>
+    <td><%=link_to "Edit", edit_admin_user_path(user.id), class: "btn btn-block btn-secondary btn-sm"%></td>
+</tr>
+
+<%end%>
+
+</tbody></table>
+</div>
+<%=link_to new_admin_user_path, class:"btn btn-app" do%>
+    <i class="fa fa-plus"></i> Add User
+<%end%>
+
+<%end%>

@@ -1,4 +1,4 @@
-module AdminDashboardHelper
+module AdminHelper
     def user_privileges user
         return content_tag(:span, "ADMIN", class: "badge badge-primary") if user.admin?
         content_tag(:span, "USER", class: "badge badge-secondary")
