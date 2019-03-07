@@ -1,1 +1,16 @@
-<%=render "shared/cahas_edi_fail"%>
+<%= render "shared/content/content_box", title: "Trading Partners" do%>
+<div class = "row">
+    <%@partnerships.each do |partner|%>
+    <div class = "col-md-2">
+        <div class="card" style="width: 18rem;">
+        <img src="https://placehold.it/300x60" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><%=partner.name%></h5>
+            <p class="card-text">Trading Partner</p>
+            <a href="#" class="btn btn-primary">View</a>
+        </div>
+        </div>
+    </div>
+    <%end%>
+</div>
+<%end%>
