@@ -60,3 +60,8 @@ gem 'font-awesome-rails'
 gem 'devise', '~> 4.6', '>= 4.6.1'
 gem 'pundit', '~> 2.0', '>= 2.0.1'
 gem 'faraday', '~> 0.15.4'
+
+gem 'capistrano', '~> 3.11'
+gem 'capistrano-rails', '~> 1.4'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
