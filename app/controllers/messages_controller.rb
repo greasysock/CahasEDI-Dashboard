@@ -1,7 +1,9 @@
 class MessagesController < AuthApplicationController
     before_action :set_message, only: [:show]
     def index
-        @messages = CahasEdi::Core.messages
+        @message_page = params[:p]
+
+        @messages = CahasEdi::Core.messages @message_page
     end
 
     def new

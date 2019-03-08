@@ -102,9 +102,12 @@ module CahasEdi
         end
 
         # If status 200 return array of Message objects
-        def self.messages
+        def self.messages page=1
             begin
-                response = @@connection.get '/messages'
+                response = @@connection.get do |req|
+                    req.url '/messages'
+                    req.params['page'] = page
+                end
             rescue Faraday::ConnectionFailed
                 return
             end
