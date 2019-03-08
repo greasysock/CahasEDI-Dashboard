@@ -1,6 +1,7 @@
 module CahasEdi
     require 'faraday'
     require 'json'
+    require 'ostruct'
     require 'date'
 
     class Template
@@ -103,13 +104,16 @@ module CahasEdi
 
         # If status 200 return array of Message objects
         def self.messages page=1
+            out_messages = OpenStruct.new
+            out_messages.pages = 0
+            out_messages.content = nil
             begin
                 response = @@connection.get do |req|
                     req.url '/messages'
                     req.params['page'] = page
                 end
             rescue Faraday::ConnectionFailed
-                return
+                return out_messages
             end
             if response.status == 200
                 messages = JSON.parse(response.body)
@@ -117,7 +121,9 @@ module CahasEdi
                 messages.each do |message|
                     processed_messages.push(self.process_message message)
                 end
-                processed_messages
+                out_messages.pages = response.headers['x-pages']
+                out_messages.content = processed_messages
+                out_messages
             end
         end
 
