@@ -107,6 +107,7 @@ module CahasEdi
             out_messages = OpenStruct.new
             out_messages.pages = 0
             out_messages.content = nil
+            out_messages.page = 0
             begin
                 response = @@connection.get do |req|
                     req.url '/messages'
@@ -121,7 +122,8 @@ module CahasEdi
                 messages.each do |message|
                     processed_messages.push(self.process_message message)
                 end
-                out_messages.pages = response.headers['x-pages']
+                out_messages.pages = response.headers['x-pages'].to_i
+                out_messages.page = response.headers['x-page'].to_i
                 out_messages.content = processed_messages
                 out_messages
             end
