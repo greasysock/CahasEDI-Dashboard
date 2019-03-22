@@ -1,0 +1,135 @@
+<%=render "shared/content/content_box", title: "#{@invoice.template.description} #{@invoice.invoice_id}" do%>
+ <!-- Main content -->
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">
+            <!--<i class="fa fa-globe"></i> AdminLTE, Inc.-->
+            <!--<small class="pull-right">Date: 2/10/2014</small>-->
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <%@invoice.invoice['addresses'].each do |address|%>
+        <div class="col-sm-4 invoice-col">
+          <%=address['type']%>
+          <address>
+            <strong><%=address['name']%></strong><br>
+            <%address['street address'].each do |street|%>
+            <%=street%><br>
+            <%end%>
+            <%="#{address['city']}, #{address['state']} #{address['zip code']}"%><br>
+          </address>
+        </div>
+        <%end%>
+
+        <div class="col-sm-4 invoice-col">
+          <b>Terms</b>
+          <br>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>NET Days</th>
+              <th>Description</th>
+            </tr>
+            <tbody>
+            <%@invoice.invoice['terms'].each do |term|%>
+                <tr>
+                <td><%=term['net days']%></td>
+                <td><%=term['description']%></td>
+                </tr>
+            <%end%>
+            </tbody>
+          </table>
+          <b>Order ID:</b> 4F3S8J<br>
+          <b>Payment Due:</b> 2/22/2014<br>
+          <b>Account:</b> 968-34567
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Unit</th>
+              <th>Product</th>
+              <th>Product ID</th>
+              <th>Description</th>
+              <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%@invoice.invoice['line items'].each do |line_item|%>
+              <td><%=line_item['quantity']%></td>
+              <td><%=line_item['unit']%></td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>
+              <%line_item['description'].each do |desc|%>
+              <%=desc%> 
+              <%end%>
+              </td>
+              <td>$<%=line_item['price']%></td>
+            <%end%>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+          <p class="lead">Payment Methods:</p>
+          <img src="../../dist/img/credit/visa.png" alt="Visa">
+          <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+          <img src="../../dist/img/credit/american-express.png" alt="American Express">
+          <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+
+          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
+            dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+          </p>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <p class="lead">Amount Due 2/22/2014</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width:50%">Subtotal:</th>
+                <td>$<%=@invoice.invoice['total amount']%></td>
+              </tr>
+              <tr>
+                <th>Tax (N/A%)</th>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <th>Shipping:</th>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <th>Total:</th>
+                <td>N/A</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+<!-- /.content -->
+
+<%end%>

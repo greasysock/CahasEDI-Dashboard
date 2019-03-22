@@ -26,6 +26,17 @@ module CahasEdi
                         :group_control_number,
                         :transaction_control_number,
                         :raw_content
+        def initialize message
+            @raw_content = message['content'] if message['content']
+            @template = Core.template message["template id"]
+            @id = message["message id"]
+            @partner = Core.partner message["partner id"]
+            @status = Core.status_hash[message['status']]
+            @date = DateTime.strptime(message['date'].to_s, '%s')
+            @interchange_control_number = message["interchange control number"]
+            @group_control_number = message["group control number"]
+            @transaction_control_number = message["transaction control number"]
+        end
         def content
             if @raw_content
                 return @raw_content
@@ -39,6 +50,21 @@ module CahasEdi
 
         def to_s
             content
+        end
+    end
+
+    class Invoice < Message
+        attr_accessor :raw_invoice, :invoice_id
+
+        def initialize message
+            super
+            @raw_invoice = message['invoice'] if message['invoice']
+            @invoice_id = message['invoice id']
+        end
+
+        def invoice
+            return @raw_invoice if @raw_invoice
+            @raw_invoice = Core.invoice(@id).invoice
         end
     end
 
@@ -89,17 +115,7 @@ module CahasEdi
         end
 
         def self.process_message message
-            m = Message.new
-            m.raw_content = message['content'] if message['content']
-            m.template = self.template message["template id"]
-            m.id = message["message id"]
-            m.partner = self.partner message["partner id"]
-            m.status = self.status_hash[message['status']]
-            m.date = DateTime.strptime(message['date'].to_s, '%s')
-            m.interchange_control_number = message["interchange control number"]
-            m.group_control_number = message["group control number"]
-            m.transaction_control_number = message["transaction control number"]
-            m
+            m = Message.new message
         end
 
         # If status 200 return array of Message objects
@@ -137,6 +153,46 @@ module CahasEdi
             end
             self.process_message(JSON.parse(response.body))
             
+        end
+
+        def self.process_invoice json_obj
+        end
+
+        def self.invoices page=1
+            out_invoices = OpenStruct.new
+            out_invoices.pages = 0
+            out_invoices.content = nil
+            out_invoices.page = 0
+            begin
+                response = @@connection.get do |req|
+                    req.url '/invoices'
+                    req.params['page'] = page
+                end
+            rescue Faraday::ConnectionFailed
+                return out_invoices
+            end
+            if response.status == 200
+                invoices_obj = JSON.parse(response.body)
+                processed_invoices = []
+                invoices_obj.each do |invoice_obj|
+                    processed_invoices.push(self.process_invoice invoice_obj)
+                end
+                out_invoices.pages = response.headers['x-pages'].to_i
+                out_invoices.page = response.headers['x-page'].to_i
+                out_invoices.content = processed_invoices
+                out_invoices
+            end
+        end
+
+        def self.invoice id
+            begin
+                response = @@connection.get "/invoices/#{id}"
+            rescue Faraday::ConnectionFailed
+                return
+            end
+            if response.status == 200
+                Invoice.new JSON.parse(response.body)
+            end
         end
 
         def self.process_template json_obj

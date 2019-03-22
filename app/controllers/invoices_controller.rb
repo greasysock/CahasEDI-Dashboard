@@ -1,6 +1,8 @@
 class InvoicesController < AuthApplicationController
-
+    before_action :set_invoice, only: [:show]
     def index
+        @invoice_page = params[:p]
+        @invoices = CahasEdi::Core.invoices @invoice_page
     end
 
     def new
@@ -10,5 +12,11 @@ class InvoicesController < AuthApplicationController
     end
 
     def show
+    end
+
+    private
+
+    def set_invoice
+        @invoice = CahasEdi::Core.invoice params[:id]
     end
 end
