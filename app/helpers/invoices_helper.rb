@@ -3,7 +3,7 @@ module InvoicesHelper
         if @invoices.content
             out = ''
             @invoices.content.each do |invoice|
-                out<<render("messages/message_table", message: invoice)
+                out<<render("invoices/invoice_table", message: invoice)
             end
             out.html_safe
         end

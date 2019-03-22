@@ -44,9 +44,7 @@
             <%end%>
             </tbody>
           </table>
-          <b>Order ID:</b> 4F3S8J<br>
-          <b>Payment Due:</b> 2/22/2014<br>
-          <b>Account:</b> 968-34567
+          <b>Invoice Date:</b> 2/22/2014<br>
         </div>
         <!-- /.col -->
       </div>
@@ -68,6 +66,7 @@
             </thead>
             <tbody>
             <%@invoice.invoice['line items'].each do |line_item|%>
+            <tr>
               <td><%=line_item['quantity']%></td>
               <td><%=line_item['unit']%></td>
               <td>N/A</td>
@@ -78,6 +77,7 @@
               <%end%>
               </td>
               <td>$<%=line_item['price']%></td>
+              </tr>
             <%end%>
             </tbody>
           </table>
@@ -86,25 +86,8 @@
       </div>
       <!-- /.row -->
 
-      <div class="row">
         <!-- accepted payments column -->
-        <div class="col-xs-6">
-          <p class="lead">Payment Methods:</p>
-          <img src="../../dist/img/credit/visa.png" alt="Visa">
-          <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-          <img src="../../dist/img/credit/american-express.png" alt="American Express">
-          <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
-          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
-            dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-          </p>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-6">
-          <p class="lead">Amount Due 2/22/2014</p>
-
-          <div class="table-responsive">
+          <div class="table-responsive" style="width: -moz-min-content;float: right;">
             <table class="table">
               <tr>
                 <th style="width:50%">Subtotal:</th>
@@ -124,12 +107,26 @@
               </tr>
             </table>
           </div>
-        </div>
-        <!-- /.col -->
-      </div>
       <!-- /.row -->
 
     </section>
 <!-- /.content -->
 
+<%end%>
+
+<%=render "shared/content/content_box", title: "Related Documents" do%>
+    <table class="table table-stripped">
+        <thead>
+        <th>Type</th>
+        <th>ID</th>
+        </thead>
+        <tbody>
+        <%@invoice.related_documents.each do |doc|%>
+        <tr>
+        <td>Unknown</td>
+        <td><%=doc['document id']%></td>
+        </tr>
+        <%end%>
+        </tbody>
+    </table>
 <%end%>

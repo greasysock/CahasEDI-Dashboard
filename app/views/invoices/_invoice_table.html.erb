@@ -1,0 +1,8 @@
+<tr>
+    <td><%=link_to "View", invoice_path(message.id), class: "btn-sm btn-default"%></td>
+    <td><%=message.template.id%></td>
+    <td><%=message.template.description%></td>
+    <td><%=link_to message.partner.name, partnership_path(message.partner.id)%></td>
+    <td><%=message.date.strftime("%m/%d/%Y | %I:%M:%S %p")%></td>
+    <td><%=message.status%></td>
+</tr>

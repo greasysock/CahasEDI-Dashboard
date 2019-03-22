@@ -25,7 +25,8 @@ module CahasEdi
                         :interchange_control_number,
                         :group_control_number,
                         :transaction_control_number,
-                        :raw_content
+                        :raw_content,
+                        :related_documents
         def initialize message
             @raw_content = message['content'] if message['content']
             @template = Core.template message["template id"]
@@ -36,6 +37,7 @@ module CahasEdi
             @interchange_control_number = message["interchange control number"]
             @group_control_number = message["group control number"]
             @transaction_control_number = message["transaction control number"]
+            @related_documents = message["related documents"] if message['related documents']
         end
         def content
             if @raw_content
@@ -175,7 +177,7 @@ module CahasEdi
                 invoices_obj = JSON.parse(response.body)
                 processed_invoices = []
                 invoices_obj.each do |invoice_obj|
-                    processed_invoices.push(self.process_invoice invoice_obj)
+                    processed_invoices.push(Invoice.new invoice_obj)
                 end
                 out_invoices.pages = response.headers['x-pages'].to_i
                 out_invoices.page = response.headers['x-page'].to_i
