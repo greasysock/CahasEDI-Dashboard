@@ -1,24 +1,20 @@
-# README
+# CahasEDI Dashboard
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This web app is designed to work with and be the frontend for [CahasEDI-Core](https://github.com/greasysock/CahasEDI-Core)
 
-Things you may want to cover:
+The feature list is small but growing.
 
-* Ruby version
+### Features
 
-* System dependencies
+* Administrative control of users. Closed registration.
+* List all messages
+* List messages by type
+* Invoice view
 
-* Configuration
+### Todo
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Add purchase order view
+* Create linking documents for related documents
+* Paginate purchase orders
+* Add ability to create invoices and purchase orders from dashboard
+* Add ability to create new partnerships from dashboard
